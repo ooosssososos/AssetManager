@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{DF8907D7-2225-4E88-B456-165D6FB10824}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManager", "WindowsFormsApp1\AssetManager.csproj", "{DF8907D7-2225-4E88-B456-165D6FB10824}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
