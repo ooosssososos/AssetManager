@@ -13,7 +13,7 @@ namespace WindowsFormsApp1
 {
     public partial class Main : Form
     {
-        private OleDbConnection conn;
+        public OleDbConnection conn;
         OleDbCommand cmd;
         //parameter from mdsaputra.udl
         private OleDbCommandBuilder oleCommandBuilder = null;
@@ -37,11 +37,28 @@ namespace WindowsFormsApp1
             return "";
         }
 
+        public DataRow findById(int id)
+        {
+
+                for (int i = 0; i < m.table.Rows.Count; i++)
+                {
+                    if (!(m.table.Rows[i].RowState == DataRowState.Deleted))
+                        if (Int32.Parse(m.table.Rows[i]["ID"].ToString()) == id)
+                        {
+                            return m.table.Rows[i];
+                        }
+                }
+                return null;
+
+        }
+
         public static int assetNoToID(string id)
         {
             for (int i = 0; i < m.table.Rows.Count; i++)
             {
-                if (m.table.Rows[i]["Asset Number"].ToString() == id)
+
+                if (!(m.table.Rows[i].RowState == DataRowState.Deleted))
+                    if (m.table.Rows[i]["Asset Number"].ToString() == id)
                 {
                     return Int32.Parse(m.table.Rows[i]["ID"].ToString());
                 }
@@ -67,7 +84,11 @@ namespace WindowsFormsApp1
             oleCommandBuilder.QuotePrefix = "[";
             oleCommandBuilder.QuoteSuffix = "]";
             bindingSource = new BindingSource { DataSource = table };
-            button2_Click(null, null);
+
+            dataGridView1.DataSource = null;
+            table.Clear();
+            da.Fill(table);
+            dataGridView1.DataSource = bindingSource;
             //this.AutoSize = true;
             // this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
         }
@@ -82,10 +103,7 @@ namespace WindowsFormsApp1
             dataGridView1.EndEdit();
             if(da != null)
             da.Update(table);
-            dataGridView1.DataSource = null;
-            table.Clear();
-            da.Fill(table);
-            dataGridView1.DataSource = bindingSource;
+            table.AcceptChanges();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -124,7 +142,21 @@ namespace WindowsFormsApp1
 
         private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            e.Cancel = MessageBox.Show("Do you want really to delete the selected row", "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK; 
+            
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (table.GetChanges() != null && MessageBox.Show("Save Changes if any?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                button2_Click(null, null);
+            }
+        }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 46)
+                e.Handled = MessageBox.Show("Do you want really to delete the selected rows", "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK;
         }
     }
 }

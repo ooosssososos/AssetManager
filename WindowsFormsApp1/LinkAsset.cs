@@ -21,8 +21,11 @@ namespace WindowsFormsApp1
             id = ID;
             for(int i = 0; i < v.m.table.Rows.Count; i++)
             {
-                comboBox2.Items.Add(v.m.table.Rows[i]["Asset Number"]);
-                comboBox1.Items.Add(v.m.table.Rows[i]["Asset Number"]);
+                if(v.m.table.Rows[i].RowState != DataRowState.Deleted)
+                {
+                    comboBox2.Items.Add(v.m.table.Rows[i]["Asset Number"]);
+                    comboBox1.Items.Add(v.m.table.Rows[i]["Asset Number"]);
+                }
             }
             comboBox1.Sorted = true;
             comboBox2.Sorted = true;
