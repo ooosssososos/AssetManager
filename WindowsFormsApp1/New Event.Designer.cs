@@ -71,6 +71,7 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Name = "New_Event";
             this.Text = "New_Event";
+            this.Load += new System.EventHandler(this.New_Event_Load);
             this.ResumeLayout(false);
 
         }

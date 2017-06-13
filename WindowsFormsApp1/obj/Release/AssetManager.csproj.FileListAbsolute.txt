@@ -12,3 +12,4 @@ C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFo
 C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFormsApp1\obj\Release\AssetManager.csproj.GenerateResource.Cache
 C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.exe
 C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.pdb
+C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFormsApp1\bin\Release\itextsharp.dll

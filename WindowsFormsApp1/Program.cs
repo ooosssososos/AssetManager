@@ -21,7 +21,7 @@ namespace WindowsFormsApp1
 
             openFileDialog1.InitialDirectory = "./";
             openFileDialog1.Filter = "access (*.accdb)|*.accdb|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.FilterIndex = 1;
             openFileDialog1.RestoreDirectory = true;
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)

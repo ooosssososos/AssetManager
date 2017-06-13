@@ -46,6 +46,8 @@ namespace WindowsFormsApp1
         {
             v.table2.Rows.Add(new Object[] { Main.assetNoToID(comboBox1.Text), Main.assetNoToID(comboBox2.Text)});
             v.button4_Click(null,null);
+            v.refresh2();
+            v.Refresh();
             this.Close();
         }
     }

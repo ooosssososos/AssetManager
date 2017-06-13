@@ -13,6 +13,7 @@ namespace WindowsFormsApp1
 {
     public partial class ViewDetails : Form
     {
+        public DataGridView datag;
         OleDbCommand cmd;
         OleDbCommand cmd2;
         //parameter from mdsaputra.udl
@@ -31,6 +32,7 @@ namespace WindowsFormsApp1
 
             InitializeComponent();
             id = ID;
+            datag = dataGridView1;
             m = refer;
                         string strSQL = "SELECT * FROM History WHERE id = " + id + "";  //rename Sheet$ to yours sheet name (Code$ you said)
                         cmd = new OleDbCommand(strSQL, m.conn);
@@ -60,6 +62,14 @@ namespace WindowsFormsApp1
             dataGridView2.Columns.Add("Type", "Type");
 
             this.Text = Main.idToAssetNo(Int32.Parse(id)) + ", " + id + " - View Details";
+        }
+
+        public void refresh2()
+        {
+            table2.Clear();
+            da2.Fill(table2);
+            table.Clear();
+            da.Fill(table);
         }
 
         private void ViewDetails_Load(object sender, EventArgs e)
@@ -176,6 +186,11 @@ namespace WindowsFormsApp1
                 button3_Click(null, null);
                 button4_Click(null, null);
             }
+        }
+
+        private void dataGridView2_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

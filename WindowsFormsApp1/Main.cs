@@ -1,11 +1,15 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -26,13 +30,13 @@ namespace WindowsFormsApp1
 
         public static string idToAssetNo(int id)
         {
-            for(int i = 0; i < m.table.Rows.Count; i++)
+            for (int i = 0; i < m.table.Rows.Count; i++)
             {
-                if(!(m.table.Rows[i].RowState == DataRowState.Deleted))
-                if(Int32.Parse(m.table.Rows[i]["ID"].ToString()) == id)
-                {
-                    return m.table.Rows[i]["Asset Number"].ToString();
-                }
+                if (!(m.table.Rows[i].RowState == DataRowState.Deleted))
+                    if (Int32.Parse(m.table.Rows[i]["ID"].ToString()) == id)
+                    {
+                        return m.table.Rows[i]["Asset Number"].ToString();
+                    }
             }
             return "";
         }
@@ -40,15 +44,15 @@ namespace WindowsFormsApp1
         public DataRow findById(int id)
         {
 
-                for (int i = 0; i < m.table.Rows.Count; i++)
-                {
-                    if (!(m.table.Rows[i].RowState == DataRowState.Deleted))
-                        if (Int32.Parse(m.table.Rows[i]["ID"].ToString()) == id)
-                        {
-                            return m.table.Rows[i];
-                        }
-                }
-                return null;
+            for (int i = 0; i < m.table.Rows.Count; i++)
+            {
+                if (!(m.table.Rows[i].RowState == DataRowState.Deleted))
+                    if (Int32.Parse(m.table.Rows[i]["ID"].ToString()) == id)
+                    {
+                        return m.table.Rows[i];
+                    }
+            }
+            return null;
 
         }
 
@@ -59,16 +63,16 @@ namespace WindowsFormsApp1
 
                 if (!(m.table.Rows[i].RowState == DataRowState.Deleted))
                     if (m.table.Rows[i]["Asset Number"].ToString() == id)
-                {
-                    return Int32.Parse(m.table.Rows[i]["ID"].ToString());
-                }
+                    {
+                        return Int32.Parse(m.table.Rows[i]["ID"].ToString());
+                    }
             }
             return -1;
         }
 
         public Main(String path)
         {
-            connParam = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source="+ path + ";Persist Security Info=False;";
+            connParam = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Persist Security Info=False;";
             conn = new OleDbConnection(connParam);
             InitializeComponent();
             m = this;
@@ -97,12 +101,12 @@ namespace WindowsFormsApp1
             new newAsset(this).Show();
         }
 
-        
+
         public void button2_Click(object sender, EventArgs e)
         {
             dataGridView1.EndEdit();
-            if(da != null)
-            da.Update(table);
+            if (da != null)
+                da.Update(table);
             table.AcceptChanges();
         }
 
@@ -117,7 +121,23 @@ namespace WindowsFormsApp1
         string search = "True";
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            search = "[Asset Number] LIKE '" + textBox1.Text + "*'";
+            search = "";
+            string[] seps = { " & " };
+            string[] x = textBox1.Text.Split(seps, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string t in x) {
+                if (t.Contains(": "))
+                {
+                    t.Substring(t.IndexOf(": "));
+                    if (table.Columns.Contains(t.Substring(0, t.IndexOf(": "))))
+                        search += "AND ([" + t.Substring(0, t.IndexOf(": ")) + "] LIKE '" + t.Substring(t.IndexOf(": ") + 2) + "*')";
+
+                }
+                else
+                {
+                    search = "AND ([Asset Number] LIKE '" + textBox1.Text + "*')";
+                }
+            }
+            System.Console.WriteLine(search);
             genRowFilter();
             dataGridView1.Refresh();
         }
@@ -137,12 +157,12 @@ namespace WindowsFormsApp1
 
         private void genRowFilter()
         {
-            table.DefaultView.RowFilter = "(" + surp.ToString() + ") AND (" + search.ToString() + ")";
+            table.DefaultView.RowFilter = "(" + surp.ToString() + ") " + search.ToString() + "";
         }
 
         private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            
+
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -157,6 +177,82 @@ namespace WindowsFormsApp1
         {
             if (e.KeyValue == 46)
                 e.Handled = MessageBox.Show("Do you want really to delete the selected rows", "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK;
+        }
+        iTextSharp.text.Font edge = FontFactory.GetFont("Arial", 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+        iTextSharp.text.Font Title = FontFactory.GetFont("Arial", 18, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+        iTextSharp.text.Font content = FontFactory.GetFont("Arial", 5, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+
+        public PdfPCell getCell(String text, int alignment, iTextSharp.text.Font f)
+        {
+            Phrase p = new Phrase(text, f);
+            PdfPCell cell = new PdfPCell(p);
+            cell.UseBorderPadding = false;
+            cell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            cell.HorizontalAlignment = alignment;
+            return cell;
+        }
+
+        public PdfPTable generateTable(DataGridViewSelectedRowCollection stuff, iTextSharp.text.Font f)
+        {
+            PdfPTable ret = new PdfPTable(5);
+            ret.WidthPercentage = 100;
+            ret.AddCell("Asset No");
+            ret.AddCell("Model");
+            ret.AddCell("Serial No");
+            ret.AddCell("HDD");
+            ret.AddCell("Memory");
+            foreach (DataGridViewRow i in stuff)
+            {
+                DataRow b = ((DataRowView)i.DataBoundItem).Row;
+                ret.AddCell(new Phrase(b["Asset Number"].ToString(), f));
+                ret.AddCell(new Phrase(b["Model"].ToString(), f));
+                ret.AddCell(new Phrase(b["S/N"].ToString(), f));
+                ret.AddCell(new Phrase(b["HDD (GB)"].ToString(), f));
+                ret.AddCell(new Phrase(b["Memory (GB)"].ToString(), f));
+            }
+            return ret;
+        }
+
+        public void refresh2()
+        {
+            table.Clear();
+            da.Fill(table);
+            this.Refresh();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //Generate Report
+            FileStream myStream;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            saveFileDialog1.Filter = "pdf files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if ((myStream = (FileStream)saveFileDialog1.OpenFile()) != null)
+                {
+                    // Code to write the stream goes here.
+                    Document doc = new Document(PageSize.A4,36,36,36,36);
+                    PdfWriter writer = PdfWriter.GetInstance(doc, myStream);
+                    doc.Open();
+                    PdfPTable tab = new PdfPTable(3);
+                    tab.WidthPercentage = 100;
+                    tab.DefaultCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+                    tab.AddCell(getCell("174 Stone Road W", PdfPCell.ALIGN_LEFT,edge));
+                    tab.AddCell(getCell("Asset Report", PdfPCell.ALIGN_CENTER, Title));
+                    tab.AddCell(getCell(DateTime.Now.ToString("yyyy-MM-dd"), PdfPCell.ALIGN_RIGHT, edge));
+                    tab.SpacingAfter = 36;
+                    doc.Add(tab);
+                    doc.Add(generateTable(dataGridView1.SelectedRows, content));
+
+                    doc.Close();
+                    System.Diagnostics.Process.Start(saveFileDialog1.FileName);
+                }
+            }
+
         }
     }
 }

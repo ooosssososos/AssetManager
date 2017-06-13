@@ -85,13 +85,49 @@ namespace WindowsFormsApp1
             a["Description"] = richTextBox1.Text;
             a["Surplus"] = checkBox1.Checked;
             a["Type"] = comboBox1.Text;
+            a["Date Added"] = dateTimePicker1.Value.ToString("yyyy-MM-dd");
+            a["Model"] = textBox6.Text;
+            a["Memory (GB)"] = textBox8.Text;
+            a["HDD (GB)"] = textBox7.Text;
+            a["Building"] = comboBox2.Text;
             m.table.Rows.Add(a);
             m.button2_Click(null, null);
+            m.refresh2();
             this.Close();
 
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
         {
 
         }

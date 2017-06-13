@@ -37,5 +37,10 @@ namespace WindowsFormsApp1
         {
 
         }
+
+        private void New_Event_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -88,15 +88,36 @@ namespace WindowsFormsApp1
         {
             for (int i = 0; i < v.table2.Rows.Count; i++)
             {
+                bool flag = false;
                 if (v.table2.Rows[i].RowState != DataRowState.Deleted)
                 {
                     //Console.Beep();
-                    if (id == v.table2.Rows[i][0].ToString()) v.table2.Rows[i][0] = Main.assetNoToID(comboBox1.Text);
-                    else v.table2.Rows[i][1] = Main.assetNoToID(comboBox1.Text);
+                    if (id == v.table2.Rows[i][0].ToString())
+                    {
+                        v.table2.Rows[i][0] = Main.assetNoToID(comboBox1.Text);
+                        flag = true;
+                    }
+                    else if(id == v.table2.Rows[i][1].ToString())
+                    {
+                        v.table2.Rows[i][1] = Main.assetNoToID(comboBox1.Text);
+                        flag = true;
+                    }
+                    if (flag)
+                    {
+                        v.table.Rows.Add(new Object[] { Main.assetNoToID(comboBox1.Text), DateTime.Now.ToString("yyyy-MM-dd"), "Replaced " + Main.idToAssetNo(Int32.Parse(id)) });
+                        v.table.Rows.Add(new Object[] { id, DateTime.Now.ToString("yyyy-MM-dd"), "Replaced By " + comboBox1.Text });
+                    }
                 }
 
             }
+
+            v.button3_Click(null, null);
             v.button4_Click(null, null);
+
+            v.refresh2();
+            v.Refresh();
+            // new ViewDetails(v.m, id).Show();
+            // v.Close();
             this.Close();
         }
     }
