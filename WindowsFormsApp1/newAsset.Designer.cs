@@ -40,7 +40,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -52,6 +51,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox1
@@ -162,16 +163,6 @@
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(304, 8);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(67, 17);
-            this.checkBox1.TabIndex = 12;
-            this.checkBox1.Text = "Surplus?";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // comboBox1
             // 
             this.comboBox1.AllowDrop = true;
@@ -180,7 +171,7 @@
             "Computer",
             "Monitor",
             "Other"});
-            this.comboBox1.Location = new System.Drawing.Point(304, 28);
+            this.comboBox1.Location = new System.Drawing.Point(304, 32);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(135, 21);
             this.comboBox1.TabIndex = 13;
@@ -204,7 +195,7 @@
             this.comboBox2.Items.AddRange(new object[] {
             "174 Stone Road W",
             "93 Stone Road W"});
-            this.comboBox2.Location = new System.Drawing.Point(304, 55);
+            this.comboBox2.Location = new System.Drawing.Point(304, 59);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(135, 21);
             this.comboBox2.TabIndex = 15;
@@ -213,7 +204,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(304, 82);
+            this.dateTimePicker1.Location = new System.Drawing.Point(304, 86);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(135, 20);
             this.dateTimePicker1.TabIndex = 16;
@@ -238,7 +229,7 @@
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(304, 113);
+            this.textBox7.Location = new System.Drawing.Point(304, 112);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(135, 20);
             this.textBox7.TabIndex = 20;
@@ -256,7 +247,7 @@
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(304, 139);
+            this.textBox8.Location = new System.Drawing.Point(304, 138);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(135, 20);
             this.textBox8.TabIndex = 22;
@@ -271,11 +262,38 @@
             this.label9.TabIndex = 21;
             this.label9.Text = "RAM (GB)";
             // 
+            // comboBox3
+            // 
+            this.comboBox3.AllowDrop = true;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "",
+            "ToBeSurplused",
+            "Surplused",
+            "ShippedAway",
+            "Missing"});
+            this.comboBox3.Location = new System.Drawing.Point(304, 5);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(135, 21);
+            this.comboBox3.TabIndex = 23;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(244, 8);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(37, 13);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "Status";
+            // 
             // newAsset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(451, 324);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.textBox7);
@@ -286,7 +304,6 @@
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.label6);
@@ -320,7 +337,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
@@ -332,5 +348,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Label label10;
     }
 }

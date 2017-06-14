@@ -83,12 +83,14 @@ namespace WindowsFormsApp1
             a["S/N"] = textBox4.Text;
             a["Manufacturer"] = textBox5.Text;
             a["Description"] = richTextBox1.Text;
-            a["Surplus"] = checkBox1.Checked;
+            a["Status"] = comboBox3.Text;
             a["Type"] = comboBox1.Text;
             a["Date Added"] = dateTimePicker1.Value.ToString("yyyy-MM-dd");
             a["Model"] = textBox6.Text;
-            a["Memory (GB)"] = textBox8.Text;
-            a["HDD (GB)"] = textBox7.Text;
+            if(textBox8.Text != "")
+            a["Memory (GB)"] = Int32.Parse(textBox8.Text);
+            if (textBox7.Text != "")
+                a["HDD (GB)"] = Int32.Parse(textBox7.Text);
             a["Building"] = comboBox2.Text;
             m.table.Rows.Add(a);
             m.button2_Click(null, null);
@@ -128,6 +130,11 @@ namespace WindowsFormsApp1
         }
 
         private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

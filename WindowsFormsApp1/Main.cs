@@ -93,6 +93,7 @@ namespace WindowsFormsApp1
             table.Clear();
             da.Fill(table);
             dataGridView1.DataSource = bindingSource;
+            button2_Click(null, null);
             //this.AutoSize = true;
             // this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
         }
@@ -108,6 +109,16 @@ namespace WindowsFormsApp1
             if (da != null)
                 da.Update(table);
             table.AcceptChanges();
+            DataGridViewComboBoxColumn comboBoxColumn = new DataGridViewComboBoxColumn();
+            comboBoxColumn.HeaderText = "Status";
+            comboBoxColumn.DataPropertyName = "Status";
+            comboBoxColumn.DataSource = bindingSource;
+            comboBoxColumn.ValueMember = "Status";
+            comboBoxColumn.DisplayMember = "Status";
+
+            //table.Columns.RemoveAt(2);
+
+            dataGridView1.Columns.Add( comboBoxColumn);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -147,13 +158,6 @@ namespace WindowsFormsApp1
             new ViewDetails(this, dataGridView1.Rows[e.RowIndex].Cells["ID"].Value.ToString()).Show();
         }
         string surp = "True";
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked) surp = "NOT [Surplus]";
-            else surp = "True";
-            genRowFilter();
-            dataGridView1.Refresh();
-        }
 
         private void genRowFilter()
         {
@@ -207,8 +211,8 @@ namespace WindowsFormsApp1
                 ret.AddCell(new Phrase(b["Asset Number"].ToString(), f));
                 ret.AddCell(new Phrase(b["Model"].ToString(), f));
                 ret.AddCell(new Phrase(b["S/N"].ToString(), f));
-                ret.AddCell(new Phrase(b["HDD (GB)"].ToString(), f));
-                ret.AddCell(new Phrase(b["Memory (GB)"].ToString(), f));
+                ret.AddCell(new Phrase(b["HDD (GB)"].ToString() + " GB", f));
+                ret.AddCell(new Phrase(b["Memory (GB)"].ToString() + " GB", f));
             }
             return ret;
         }
@@ -253,6 +257,13 @@ namespace WindowsFormsApp1
                 }
             }
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            surp = "[Status] LIKE '" + comboBox1.SelectedText + "*'";
+            genRowFilter();
+            dataGridView1.Refresh();
         }
     }
 }
