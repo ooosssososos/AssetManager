@@ -88,6 +88,7 @@ namespace WindowsFormsApp1
             oleCommandBuilder.QuotePrefix = "[";
             oleCommandBuilder.QuoteSuffix = "]";
             bindingSource = new BindingSource { DataSource = table };
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.CellSelect;
 
             dataGridView1.DataSource = null;
             table.Clear();
@@ -109,16 +110,7 @@ namespace WindowsFormsApp1
             if (da != null)
                 da.Update(table);
             table.AcceptChanges();
-            DataGridViewComboBoxColumn comboBoxColumn = new DataGridViewComboBoxColumn();
-            comboBoxColumn.HeaderText = "Status";
-            comboBoxColumn.DataPropertyName = "Status";
-            comboBoxColumn.DataSource = bindingSource;
-            comboBoxColumn.ValueMember = "Status";
-            comboBoxColumn.DisplayMember = "Status";
-
-            //table.Columns.RemoveAt(2);
-
-            dataGridView1.Columns.Add( comboBoxColumn);
+            
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -264,6 +256,14 @@ namespace WindowsFormsApp1
             surp = "[Status] LIKE '" + comboBox1.SelectedText + "*'";
             genRowFilter();
             dataGridView1.Refresh();
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            foreach (DataGridViewCell a in dataGridView1.SelectedCells)
+            {
+                table.Rows[a.RowIndex][a.ColumnIndex] = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            }
         }
     }
 }
