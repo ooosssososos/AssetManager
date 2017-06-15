@@ -265,5 +265,30 @@ namespace WindowsFormsApp1
                 table.Rows[a.RowIndex][a.ColumnIndex] = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            newGroup d = new newGroup(this);
+            if(d.ShowDialog() == DialogResult.OK)
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                OleDbCommand c = new OleDbCommand("INSERT INTO [GroupLink] ([GID], [ID]) Values (@a,@b)", conn);
+                c.Parameters.AddWithValue("@a", d.ID);
+                c.Parameters.AddWithValue("@b", 0);
+                foreach ( DataGridViewRow r in dataGridView1.SelectedCells.Cast<DataGridViewCell>()
+                                           .Select(cell => cell.OwningRow)
+                                           .Distinct())
+                {
+                    Console.Out.WriteLine("test");
+                    c.Parameters[0].Value = d.ID;
+                    c.Parameters[1].Value = ((DataRowView)r.DataBoundItem).Row["ID"];
+                    c.ExecuteNonQuery();
+
+                }
+                button2_Click(null,null);
+            }
+            
+        }
     }
 }
