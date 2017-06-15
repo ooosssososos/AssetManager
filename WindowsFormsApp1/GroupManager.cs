@@ -140,8 +140,9 @@ namespace WindowsFormsApp1
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            
             updateAssetTable();
-            table2.DefaultView.RowFilter = "[GID] = " + dataGridView1.SelectedCells[0].Value.ToString();
+         //   table2.DefaultView.RowFilter = "[GID] = " + dataGridView1.SelectedCells[0].Value.ToString();
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -233,6 +234,11 @@ namespace WindowsFormsApp1
         {
             if (e.RowIndex >= 0)
                 new ViewDetails(m, dataGridView3.Rows[e.RowIndex].Cells["ID"].Value.ToString()).Show();
+        }
+
+        private void GroupManager_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

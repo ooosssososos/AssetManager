@@ -132,6 +132,7 @@
             this.Name = "GroupManager";
             this.Text = "GroupManager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GroupManager_FormClosing);
+            this.Load += new System.EventHandler(this.GroupManager_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GroupManager_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
