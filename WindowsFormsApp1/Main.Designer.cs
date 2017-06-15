@@ -34,12 +34,14 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -50,7 +52,7 @@
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 965);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1836, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1484, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -60,16 +62,17 @@
             this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Controls.Add(this.textBox1);
             this.flowLayoutPanel1.Controls.Add(this.comboBox1);
+            this.flowLayoutPanel1.Controls.Add(this.button6);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1254, 30);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(983, 30);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(369, 23);
+            this.button1.Size = new System.Drawing.Size(166, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "New Asset";
             this.button1.UseVisualStyleBackColor = true;
@@ -77,9 +80,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(378, 3);
+            this.button2.Location = new System.Drawing.Point(175, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(314, 23);
+            this.button2.Size = new System.Drawing.Size(120, 23);
             this.button2.TabIndex = 6;
             this.button2.Text = "Save/Refresh";
             this.button2.UseVisualStyleBackColor = true;
@@ -87,11 +90,26 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(698, 3);
+            this.textBox1.Location = new System.Drawing.Point(301, 3);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(316, 20);
             this.textBox1.TabIndex = 7;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "",
+            "ToBeSurplused",
+            "Surplused",
+            "ShippedAway",
+            "Missing"});
+            this.comboBox1.Location = new System.Drawing.Point(623, 3);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(193, 21);
+            this.comboBox1.TabIndex = 8;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // flowLayoutPanel2
             // 
@@ -109,7 +127,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1821, 927);
+            this.dataGridView1.Size = new System.Drawing.Size(1477, 927);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
@@ -123,7 +141,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1261, 3);
+            this.button3.Location = new System.Drawing.Point(989, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(160, 23);
             this.button3.TabIndex = 5;
@@ -133,7 +151,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1427, 3);
+            this.button4.Location = new System.Drawing.Point(1155, 3);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(152, 23);
             this.button4.TabIndex = 6;
@@ -141,26 +159,32 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // comboBox1
+            // button5
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "",
-            "ToBeSurplused",
-            "Surplused",
-            "ShippedAway",
-            "Missing"});
-            this.comboBox1.Location = new System.Drawing.Point(1020, 3);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(193, 21);
-            this.comboBox1.TabIndex = 8;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.button5.Location = new System.Drawing.Point(1313, 3);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(152, 23);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "Group Manager";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(822, 3);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(146, 23);
+            this.button6.TabIndex = 9;
+            this.button6.Text = "Add To Group";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1836, 987);
+            this.ClientSize = new System.Drawing.Size(1484, 987);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.flowLayoutPanel2);
@@ -192,6 +216,8 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }
 

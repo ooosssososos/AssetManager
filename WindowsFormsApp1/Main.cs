@@ -24,7 +24,7 @@ namespace WindowsFormsApp1
         OleDbDataAdapter da;
         public DataTable table = new DataTable();
 
-        private String connParam = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\shihao\Desktop\Database11.accdb;Persist Security Info=False;";
+        public String connParam = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\shihao\Desktop\Database11.accdb;Persist Security Info=False;";
 
         static Main m;
 
@@ -88,7 +88,7 @@ namespace WindowsFormsApp1
             oleCommandBuilder.QuotePrefix = "[";
             oleCommandBuilder.QuoteSuffix = "]";
             bindingSource = new BindingSource { DataSource = table };
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
 
             dataGridView1.DataSource = null;
             table.Clear();
@@ -289,6 +289,35 @@ namespace WindowsFormsApp1
                 button2_Click(null,null);
             }
             
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            new GroupManager(this).Show();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            GroupSelect d = new GroupSelect();
+            if (d.ShowDialog() == DialogResult.OK)
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                OleDbCommand c = new OleDbCommand("INSERT INTO [GroupLink] ([GID], [ID]) Values (@a,@b)", conn);
+                c.Parameters.AddWithValue("@a", d.GID);
+                c.Parameters.AddWithValue("@b", 0);
+                foreach (DataGridViewRow r in dataGridView1.SelectedCells.Cast<DataGridViewCell>()
+                                           .Select(cell => cell.OwningRow)
+                                           .Distinct())
+                {
+                    Console.Out.WriteLine("test");
+                    c.Parameters[0].Value = d.GID;
+                    c.Parameters[1].Value = ((DataRowView)r.DataBoundItem).Row["ID"];
+                    c.ExecuteNonQuery();
+
+                }
+                button2_Click(null, null);
+            }
         }
     }
 }

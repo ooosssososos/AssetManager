@@ -48,6 +48,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GroupManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GroupManager.Designer.cs">
+      <DependentUpon>GroupManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GroupSelect.Designer.cs">
+      <DependentUpon>GroupSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="New GEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="New GEvent.Designer.cs">
+      <DependentUpon>New GEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="newGroup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,11 +107,20 @@
     <Compile Include="ViewDetails.Designer.cs">
       <DependentUpon>ViewDetails.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GroupManager.resx">
+      <DependentUpon>GroupManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupSelect.resx">
+      <DependentUpon>GroupSelect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LinkAsset.resx">
       <DependentUpon>LinkAsset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="New GEvent.resx">
+      <DependentUpon>New GEvent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="New Event.resx">
       <DependentUpon>New Event.cs</DependentUpon>

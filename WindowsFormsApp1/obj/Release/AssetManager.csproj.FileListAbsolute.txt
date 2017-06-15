@@ -14,3 +14,6 @@ C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFo
 C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.pdb
 C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFormsApp1\bin\Release\itextsharp.dll
 C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.newGroup.resources
+C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.GroupManager.resources
+C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.New_GEvent.resources
+C:\Users\shihao\Documents\Visual Studio 2017\Projects\WindowsFormsApp1\WindowsFormsApp1\obj\Release\WindowsFormsApp1.GroupSelect.resources

@@ -41,5 +41,10 @@ namespace WindowsFormsApp1
             Console.Out.WriteLine(ID);
             this.Close();
         }
+
+        private void newGroup_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
