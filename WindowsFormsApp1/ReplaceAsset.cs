@@ -104,12 +104,14 @@ namespace WindowsFormsApp1
                     }
                     if (flag)
                     {
-                        v.table.Rows.Add(new Object[] { Main.assetNoToID(comboBox1.Text), DateTime.Now.ToString("yyyy-MM-dd"), "Replaced " + Main.idToAssetNo(Int32.Parse(id)) });
-                        v.table.Rows.Add(new Object[] { id, DateTime.Now.ToString("yyyy-MM-dd"), "Replaced By " + comboBox1.Text });
+                        //whats flag for???
                     }
                 }
 
             }
+
+            v.table.Rows.Add(new Object[] { Main.assetNoToID(comboBox1.Text), DateTime.Now.ToString("yyyy-MM-dd"), "Replaced " + Main.idToAssetNo(Int32.Parse(id)) });
+            v.table.Rows.Add(new Object[] { id, DateTime.Now.ToString("yyyy-MM-dd"), "Replaced By " + comboBox1.Text });
 
             v.button3_Click(null, null);
             v.button4_Click(null, null);

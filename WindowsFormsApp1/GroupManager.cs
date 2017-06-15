@@ -56,7 +56,7 @@ namespace WindowsFormsApp1
             oleCommandBuilder2.QuotePrefix = "[";
             oleCommandBuilder2.QuoteSuffix = "]";
             bindingSource2 = new BindingSource { DataSource = table2 };
-            dataGridView2.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dataGridView2.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
             dataGridView1.MultiSelect = false;
             dataGridView2.DataSource = null;
             table2.Clear();
@@ -142,7 +142,8 @@ namespace WindowsFormsApp1
         {
             
             updateAssetTable();
-         //   table2.DefaultView.RowFilter = "[GID] = " + dataGridView1.SelectedCells[0].Value.ToString();
+            if(dataGridView1.SelectedCells.Count > 0)
+            table2.DefaultView.RowFilter = "[GID] = " + dataGridView1.SelectedCells[0].Value.ToString();
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -153,26 +154,24 @@ namespace WindowsFormsApp1
 
         private void GroupManager_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 46)
-                e.Handled = MessageBox.Show("Do you want really to delete the selected rows", "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK;
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 46)
+            if (e.KeyValue == 46 && dataGridView1.SelectedRows.Count > 0)
                 e.Handled = MessageBox.Show("Do you want really to delete the selected rows", "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK;
         }
 
         private void dataGridView2_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 46)
+            if (e.KeyValue == 46 && dataGridView2.SelectedRows.Count > 0)
                 e.Handled = MessageBox.Show("Do you want really to delete the selected rows", "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK;
         }
 
 
         private void dataGridView3_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 46)
+            if (e.KeyValue == 46 && dataGridView3.SelectedRows.Count > 0)
                 e.Handled = MessageBox.Show("Do you want really to delete the selected rows", "Confirm", MessageBoxButtons.OKCancel) == DialogResult.OK;
             if (e.Handled)
             {

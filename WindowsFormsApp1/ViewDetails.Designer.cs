@@ -46,7 +46,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 41);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(568, 656);
+            this.dataGridView1.Size = new System.Drawing.Size(482, 656);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -56,9 +56,9 @@
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(586, 41);
+            this.dataGridView2.Location = new System.Drawing.Point(501, 41);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(551, 252);
+            this.dataGridView2.Size = new System.Drawing.Size(373, 252);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick_1);
             this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
@@ -66,9 +66,9 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(586, 299);
+            this.richTextBox1.Location = new System.Drawing.Point(501, 299);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(551, 398);
+            this.richTextBox1.Size = new System.Drawing.Size(373, 398);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -86,7 +86,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(586, 13);
+            this.button2.Location = new System.Drawing.Point(501, 12);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(125, 23);
             this.button2.TabIndex = 4;
@@ -106,7 +106,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(717, 13);
+            this.button4.Location = new System.Drawing.Point(632, 12);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(124, 23);
             this.button4.TabIndex = 6;
@@ -116,7 +116,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(847, 13);
+            this.button5.Location = new System.Drawing.Point(762, 12);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(100, 23);
             this.button5.TabIndex = 7;
@@ -128,7 +128,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1149, 709);
+            this.ClientSize = new System.Drawing.Size(881, 709);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);

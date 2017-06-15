@@ -121,7 +121,7 @@ namespace WindowsFormsApp1
         {
 
         }
-        string search = "True";
+        string search = "";
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             search = "";
@@ -149,7 +149,7 @@ namespace WindowsFormsApp1
         {
             new ViewDetails(this, dataGridView1.Rows[e.RowIndex].Cells["ID"].Value.ToString()).Show();
         }
-        string surp = "True";
+        string surp = "true";
 
         private void genRowFilter()
         {
@@ -171,7 +171,7 @@ namespace WindowsFormsApp1
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 46)
+            if (e.KeyValue == 46 && dataGridView1.SelectedRows.Count > 0)
                 e.Handled = MessageBox.Show("Do you want really to delete the selected rows", "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK;
         }
         iTextSharp.text.Font edge = FontFactory.GetFont("Arial", 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
@@ -253,7 +253,9 @@ namespace WindowsFormsApp1
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            surp = "[Status] LIKE '" + comboBox1.SelectedText + "*'";
+            surp = "[Status] LIKE '" + comboBox1.Text + "*'";
+            if (comboBox1.Text == "")
+                surp = "true";
             genRowFilter();
             dataGridView1.Refresh();
         }

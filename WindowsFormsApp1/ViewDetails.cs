@@ -84,6 +84,8 @@ namespace WindowsFormsApp1
             if (da != null)
                 da.Update(table);
             table.AcceptChanges();
+            table.Clear();
+            da.Fill(table);
 
             
         }
@@ -118,7 +120,10 @@ namespace WindowsFormsApp1
             dataGridView2.EndEdit();
             if (da2 != null)
                 da2.Update(table2);
-            table.AcceptChanges();
+            table2.AcceptChanges();
+
+            table2.Clear();
+            da2.Fill(table2);
         }
         int notused = 0;
 
@@ -175,7 +180,7 @@ namespace WindowsFormsApp1
         }
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 46)
+            if (e.KeyValue == 46 && dataGridView1.SelectedRows.Count > 0)
                 e.Handled = MessageBox.Show("Do you want really to delete the selected rows", "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK;
         }
 
