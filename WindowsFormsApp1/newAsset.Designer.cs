@@ -168,14 +168,16 @@
             this.comboBox1.AllowDrop = true;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Computer",
+            "Desktop",
+            "Laptop",
+            "Tablet",
             "Monitor",
             "Other"});
             this.comboBox1.Location = new System.Drawing.Point(304, 32);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(135, 21);
             this.comboBox1.TabIndex = 13;
-            this.comboBox1.Text = "Computer";
+            this.comboBox1.Text = "Laptop";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // button1

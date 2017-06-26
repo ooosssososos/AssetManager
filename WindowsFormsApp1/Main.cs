@@ -9,15 +9,18 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Management;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Permissions;
 
 namespace WindowsFormsApp1
 {
     public partial class Main : Form
     {
         public OleDbConnection conn;
+        public static OleDbConnection con;
         OleDbCommand cmd;
         //parameter from mdsaputra.udl
         private OleDbCommandBuilder oleCommandBuilder = null;
@@ -74,6 +77,7 @@ namespace WindowsFormsApp1
         {
             connParam = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Persist Security Info=False;";
             conn = new OleDbConnection(connParam);
+            con = new OleDbConnection(connParam);
             InitializeComponent();
             m = this;
         }
@@ -81,6 +85,7 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            conn = new OleDbConnection(connParam);
             string strSQL = "SELECT * FROM assets";  //rename Sheet$ to yours sheet name (Code$ you said)
             cmd = new OleDbCommand(strSQL, conn);
             da = new OleDbDataAdapter(cmd);
@@ -319,6 +324,71 @@ namespace WindowsFormsApp1
 
                 }
                 button2_Click(null, null);
+            }
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string[] login =  PasswordPrompt.ShowDialog();
+            if (login == null)
+            {
+                MessageBox.Show("Empty Login", "Login Failed",
+    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            //Console.WriteLine(login[0]);
+            ConnectionOptions options = new ConnectionOptions();
+            options.EnablePrivileges = true;
+            options.Impersonation = ImpersonationLevel.Impersonate;
+            //   options.Authority = "ntlmdomain:" + System.Configuration.ConfigurationSettings.AppSettings["DomainName"].ToString();
+            options.Authentication = AuthenticationLevel.Packet;
+            options.Username = login[0];
+            options.Password = login[1];
+            List<Task> tasks = new List<Task>();
+            foreach (DataRow r in table.Rows)
+            {
+              //  Console.WriteLine("Test1");
+                if ((string)r["Asset Number"] == "") continue ;
+                string name = (string)r["Asset Number"];
+                if (String.Compare(((string)r["Type"]), "Laptop", StringComparison.OrdinalIgnoreCase) == 0) {
+                    name += "P";
+                }
+                else if(String.Compare(((string)r["Type"]), "Desktop", StringComparison.OrdinalIgnoreCase) == 0)
+                {
+                    name += "D";
+                }
+                else
+                {
+                    continue;
+                }
+
+              //  Console.WriteLine("Testb" + name);
+                tasks.Add(Task.Factory.StartNew(() =>
+                {
+
+                    ManagementScope scope = new ManagementScope("\\\\ONGUELA" + name + "\\root\\cimv2",options);
+                    scope.Connect();
+                    ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
+                    ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
+
+                    ManagementObjectCollection queryCollection = searcher.Get();
+                    foreach (ManagementObject m in queryCollection)
+                    {
+                        // Display the remote computer information
+                        Console.WriteLine("Computer Name     : {0}", m["csname"]);
+                        Console.WriteLine("Windows Directory : {0}", m["WindowsDirectory"]);
+                        Console.WriteLine("Operating System  : {0}", m["Caption"]);
+                        Console.WriteLine("Version           : {0}", m["Version"]);
+                        Console.WriteLine("Manufacturer      : {0}", m["Manufacturer"]);
+                    }
+
+                    Console.WriteLine("hia");
+                    lock (r)
+                    {
+                        r["LastWMIC"] = DateTime.Now.ToString("yyyy-MM-dd");
+                    }
+                    Console.WriteLine("hic");
+                }));
+                Task.WaitAll(tasks.ToArray());
             }
         }
     }

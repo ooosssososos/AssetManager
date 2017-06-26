@@ -35,13 +35,14 @@
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -66,6 +67,7 @@
             this.flowLayoutPanel1.Controls.Add(this.button6);
             this.flowLayoutPanel1.Controls.Add(this.button4);
             this.flowLayoutPanel1.Controls.Add(this.button5);
+            this.flowLayoutPanel1.Controls.Add(this.button7);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1472, 30);
@@ -115,15 +117,45 @@
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             this.comboBox1.TextUpdate += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(822, 3);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(110, 23);
+            this.button3.TabIndex = 5;
+            this.button3.Text = "Generate Report";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(988, 3);
+            this.button6.Location = new System.Drawing.Point(938, 3);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(146, 23);
+            this.button6.Size = new System.Drawing.Size(91, 23);
             this.button6.TabIndex = 9;
             this.button6.Text = "Add To Group";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(1035, 3);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(92, 23);
+            this.button4.TabIndex = 6;
+            this.button4.Text = "Create Group";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(1133, 3);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(95, 23);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "Group Manager";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // flowLayoutPanel2
             // 
@@ -153,35 +185,15 @@
             // 
             this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
             // 
-            // button3
+            // button7
             // 
-            this.button3.Location = new System.Drawing.Point(822, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(160, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Generate Report";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(1140, 3);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(152, 23);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Create Group";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(1298, 3);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(152, 23);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "Group Manager";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button7.Location = new System.Drawing.Point(1234, 3);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "WMIUpdate";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // Main
             // 
@@ -219,6 +231,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,18 @@ namespace WindowsFormsApp1
         public GroupSelect()
         {
             InitializeComponent();
+            if(Main.con.State == ConnectionState.Closed)
+            Main.con.Open();
+            string strSQL2 = "SELECT * FROM [Groups]";  //rename Sheet$ to yours sheet name (Code$ you said)
+            OleDbCommand cmd2 = new OleDbCommand(strSQL2, Main.con);
+            using (var Reader = cmd2.ExecuteReader())
+            {
+                while (Reader.Read())
+                {
+                    comboBox1.Items.Add(Reader.GetInt32(0) + ", " + Reader.GetString(1));
+                }
+            }
+            
         }
 
         private void GroupSelect_Load(object sender, EventArgs e)
@@ -27,7 +40,7 @@ namespace WindowsFormsApp1
         {
             try
             {
-                GID = Int32.Parse(textBox1.Text);
+                GID = Int32.Parse(comboBox1.Text.Split(',')[0]);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }catch(Exception err)
