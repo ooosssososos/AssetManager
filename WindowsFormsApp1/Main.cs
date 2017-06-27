@@ -14,6 +14,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Permissions;
+using System.Net.Sockets;
+using System.Net;
+using System.DirectoryServices.AccountManagement;
+using System.Reflection;
 
 namespace WindowsFormsApp1
 {
@@ -85,6 +89,13 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            // dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.MinimumSize = new Size(0, 0);
+            dataGridView1.MaximumSize = new Size(0, 0);
+            dataGridView1.Margin = new Padding(0);
+            tableLayoutPanel1.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
+            dataGridView1.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top) ;
+           // flowLayoutPanel2.Dock = DockStyle.Fill;
             conn = new OleDbConnection(connParam);
             string strSQL = "SELECT * FROM assets";  //rename Sheet$ to yours sheet name (Code$ you said)
             cmd = new OleDbCommand(strSQL, conn);
@@ -100,6 +111,14 @@ namespace WindowsFormsApp1
             da.Fill(table);
             dataGridView1.DataSource = bindingSource;
             button2_Click(null, null);
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            if (!System.Windows.Forms.SystemInformation.TerminalServerSession)
+            {
+                Type dgvType = dataGridView1.GetType();
+                PropertyInfo pi = dgvType.GetProperty("DoubleBuffered",
+                  BindingFlags.Instance | BindingFlags.NonPublic);
+                pi.SetValue(dataGridView1, true, null);
+            }
             //this.AutoSize = true;
             // this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
         }
@@ -326,13 +345,59 @@ namespace WindowsFormsApp1
                 button2_Click(null, null);
             }
         }
+
+        public static bool PingHost(string _HostURI, int _PortNumber)
+        {
+            try
+            {
+                var client = new TcpClient();
+                var result = client.BeginConnect(_HostURI, _PortNumber, null, null);
+
+                bool success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(3));
+
+                Console.WriteLine(success);
+                Console.WriteLine("!"+!success);
+                if (!success)
+                {
+                    return false;
+                }
+
+                // we have connected
+                Console.WriteLine("test3");
+                client.EndConnect(result);
+                //client.EndConnect(result);
+                Console.WriteLine("test2");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return true;
+            }
+        }
+
+
         private void button7_Click(object sender, EventArgs e)
         {
+
+
             string[] login =  PasswordPrompt.ShowDialog();
             if (login == null)
             {
                 MessageBox.Show("Empty Login", "Login Failed",
     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            bool valid = false;
+            using (PrincipalContext context = new PrincipalContext(ContextType.Domain))
+            {
+                valid = context.ValidateCredentials(login[0], login[1]);
+            }
+            if (!valid)
+            {
+                MessageBox.Show("Incorrect Credentials", "Login Failed",
+MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             //Console.WriteLine(login[0]);
@@ -343,6 +408,10 @@ namespace WindowsFormsApp1
             options.Authentication = AuthenticationLevel.Packet;
             options.Username = login[0];
             options.Password = login[1];
+
+            EnumerationOptions opt = new EnumerationOptions();
+            opt.Timeout = new TimeSpan(0, 0, 1);
+            options.Timeout = new TimeSpan(0, 0, 1);
             List<Task> tasks = new List<Task>();
             foreach (DataRow r in table.Rows)
             {
@@ -364,32 +433,50 @@ namespace WindowsFormsApp1
               //  Console.WriteLine("Testb" + name);
                 tasks.Add(Task.Factory.StartNew(() =>
                 {
-
-                    ManagementScope scope = new ManagementScope("\\\\ONGUELA" + name + "\\root\\cimv2",options);
-                    scope.Connect();
-                    ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
-                    ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
-
-                    ManagementObjectCollection queryCollection = searcher.Get();
-                    foreach (ManagementObject m in queryCollection)
+                    try
                     {
-                        // Display the remote computer information
-                        Console.WriteLine("Computer Name     : {0}", m["csname"]);
-                        Console.WriteLine("Windows Directory : {0}", m["WindowsDirectory"]);
-                        Console.WriteLine("Operating System  : {0}", m["Caption"]);
-                        Console.WriteLine("Version           : {0}", m["Version"]);
-                        Console.WriteLine("Manufacturer      : {0}", m["Manufacturer"]);
-                    }
+                      //  if (!PingHost("\\\\ONGUELA" + name, 445))
+                     //       return;
 
-                    Console.WriteLine("hia");
-                    lock (r)
+                        Console.WriteLine("test");
+                        ManagementScope scope = new ManagementScope("\\\\ONGUELA" + name + "\\root\\cimv2", options);
+
+                        scope.Options.Timeout = TimeSpan.FromSeconds(1);
+                        scope.Connect();
+                        ObjectQuery query = new ObjectQuery("SELECT Capacity FROM Win32_PhysicalMemory");
+                        ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query, opt);
+                        searcher.Options.Timeout = TimeSpan.FromSeconds(1);
+                        ManagementObjectCollection queryCollection = searcher.Get();
+
+                        UInt64 Capacity = 0;
+                        foreach (ManagementObject m in queryCollection)
+                        {
+                            Capacity += (UInt64)m["Capacity"];
+                        }
+
+
+
+                        Console.WriteLine("hia");
+                        lock (r)
+                        {
+                            r["Memory (GB)"] = Math.Round((double)Capacity / (1024 * 1024 * 1024));
+                            r["LastWMIC"] = DateTime.Now.ToString("yyyy-MM-dd");
+                        }
+                        Console.WriteLine("hic");
+                    } catch(Exception er)
                     {
-                        r["LastWMIC"] = DateTime.Now.ToString("yyyy-MM-dd");
+                        Console.WriteLine(er.ToString());
                     }
-                    Console.WriteLine("hic");
                 }));
-                Task.WaitAll(tasks.ToArray());
             }
+
+            Task.WaitAll(tasks.ToArray());
+            dataGridView1.Refresh();
+        }
+
+        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
