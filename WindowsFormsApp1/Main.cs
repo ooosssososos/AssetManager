@@ -288,7 +288,7 @@ namespace WindowsFormsApp1
         {
             foreach (DataGridViewCell a in dataGridView1.SelectedCells)
             {
-                table.Rows[a.RowIndex][a.ColumnIndex] = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                ((DataRowView)a.OwningRow.DataBoundItem).Row[a.ColumnIndex] = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
             }
         }
 
@@ -355,8 +355,8 @@ namespace WindowsFormsApp1
 
                 bool success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(3));
 
-                Console.WriteLine(success);
-                Console.WriteLine("!"+!success);
+              //  Console.WriteLine(success);
+               // Console.WriteLine("!"+!success);
                 if (!success)
                 {
                     return false;
@@ -415,6 +415,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Error);
             List<Task> tasks = new List<Task>();
             foreach (DataRow r in table.Rows)
             {
+                Console.WriteLine(DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond);
               //  Console.WriteLine("Test1");
                 if ((string)r["Asset Number"] == "") continue ;
                 string name = (string)r["Asset Number"];
@@ -435,17 +436,17 @@ MessageBoxButtons.OK, MessageBoxIcon.Error);
                 {
                     try
                     {
-                      //  if (!PingHost("\\\\ONGUELA" + name, 445))
-                     //       return;
+                     //   if (!PingHost("ONGUELA" + name, 135))
+                    //        return;
 
                         Console.WriteLine("test");
                         ManagementScope scope = new ManagementScope("\\\\ONGUELA" + name + "\\root\\cimv2", options);
 
-                        scope.Options.Timeout = TimeSpan.FromSeconds(1);
+                        scope.Options.Timeout = TimeSpan.FromSeconds(5);
                         scope.Connect();
                         ObjectQuery query = new ObjectQuery("SELECT Capacity FROM Win32_PhysicalMemory");
                         ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query, opt);
-                        searcher.Options.Timeout = TimeSpan.FromSeconds(1);
+                        searcher.Options.Timeout = TimeSpan.FromSeconds(5);
                         ManagementObjectCollection queryCollection = searcher.Get();
 
                         UInt64 Capacity = 0;
