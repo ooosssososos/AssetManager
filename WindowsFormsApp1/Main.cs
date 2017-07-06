@@ -286,9 +286,10 @@ namespace WindowsFormsApp1
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            string rep = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
             foreach (DataGridViewCell a in dataGridView1.SelectedCells)
             {
-                ((DataRowView)a.OwningRow.DataBoundItem).Row[a.ColumnIndex] = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                ((DataRowView)a.OwningRow.DataBoundItem).Row[a.ColumnIndex] = rep;
             }
         }
 
