@@ -92,6 +92,8 @@ namespace WindowsFormsApp1
             if (textBox7.Text != "")
                 a["HDD (GB)"] = Int32.Parse(textBox7.Text);
             a["Building"] = comboBox2.Text;
+            a["OS"] = comboBox4.Text;
+            a["On Network"] = checkBox1.Checked;
             m.table.Rows.Add(a);
             m.button2_Click(null, null);
             m.refresh2();
@@ -135,6 +137,16 @@ namespace WindowsFormsApp1
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }

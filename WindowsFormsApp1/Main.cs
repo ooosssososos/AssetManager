@@ -110,6 +110,7 @@ namespace WindowsFormsApp1
             table.Clear();
             da.Fill(table);
             dataGridView1.DataSource = bindingSource;
+            Console.WriteLine("WAT");
             button2_Click(null, null);
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             if (!System.Windows.Forms.SystemInformation.TerminalServerSession)
@@ -130,11 +131,38 @@ namespace WindowsFormsApp1
 
         public void button2_Click(object sender, EventArgs e)
         {
+
             dataGridView1.EndEdit();
             if (da != null)
                 da.Update(table);
             table.AcceptChanges();
-            
+            table.Clear();
+            da.Fill(table);
+            string strSQL2 = @"Select * from assets where ID In (
+Select B.asset2 FROM assets A Left Join relations B ON A.ID = B.asset1 WHERE a.type = 'instrument' AND not B.asset1 IS NULL)
+UNION
+Select* from assets where ID In(
+Select B.asset1 FROM assets A Left Join relations B ON A.ID = B.asset2 WHERE a.type = 'instrument' AND not B.asset1 IS NULL)";  //rename Sheet$ to yours sheet name (Code$ you said)
+            OleDbCommand cmd2 = new OleDbCommand(strSQL2, m.conn);
+            try { conn.Open(); } catch (Exception er) { }
+            OleDbDataReader reader = cmd2.ExecuteReader();
+            List<string> ins = new List<string>();
+            while (reader.Read())
+            {
+                ins.Add(reader[0].ToString());
+            }
+            reader.Close();
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
+                {
+                    if (ins.Contains(row.Cells[0].Value.ToString()))
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Aquamarine;
+                    }
+                }
+                catch (Exception) { }
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -364,10 +392,10 @@ namespace WindowsFormsApp1
                 }
 
                 // we have connected
-                Console.WriteLine("test3");
+               // Console.WriteLine("test3");
                 client.EndConnect(result);
                 //client.EndConnect(result);
-                Console.WriteLine("test2");
+               // Console.WriteLine("test2");
                 return true;
             }
             catch (Exception ex)
@@ -458,13 +486,13 @@ MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 
 
-                        Console.WriteLine("hia");
+                        //Console.WriteLine("hia");
                         lock (r)
                         {
                             r["Memory (GB)"] = Math.Round((double)Capacity / (1024 * 1024 * 1024));
                             r["LastWMIC"] = DateTime.Now.ToString("yyyy-MM-dd");
                         }
-                        Console.WriteLine("hic");
+                        //Console.WriteLine("hic");
                     } catch(Exception er)
                     {
                         Console.WriteLine(er.ToString());
