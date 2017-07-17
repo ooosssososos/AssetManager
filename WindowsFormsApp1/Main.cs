@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+
 using System.Data.OleDb;
 using System.Drawing;
 using System.IO;
@@ -14,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Permissions;
+
 using System.Net.Sockets;
 using System.Net;
 using System.DirectoryServices.AccountManagement;
@@ -141,7 +143,7 @@ namespace WindowsFormsApp1
             string strSQL2 = @"Select * from assets where ID In (
 Select B.asset2 FROM assets A Left Join relations B ON A.ID = B.asset1 WHERE a.type = 'instrument' AND not B.asset1 IS NULL)
 UNION
-Select* from assets where ID In(
+Select * from assets where ID In(
 Select B.asset1 FROM assets A Left Join relations B ON A.ID = B.asset2 WHERE a.type = 'instrument' AND not B.asset1 IS NULL)";  //rename Sheet$ to yours sheet name (Code$ you said)
             OleDbCommand cmd2 = new OleDbCommand(strSQL2, m.conn);
             try { conn.Open(); } catch (Exception er) { }
@@ -484,6 +486,29 @@ MessageBoxButtons.OK, MessageBoxIcon.Error);
                             Capacity += (UInt64)m["Capacity"];
                         }
 
+                        query = new ObjectQuery("SELECT Size FROM Win32_DiskDrive");
+                        searcher = new ManagementObjectSearcher(scope, query, opt);
+                        queryCollection = searcher.Get();
+
+                        UInt64 HDD = 0;
+                        foreach (ManagementObject m in queryCollection)
+                        {
+                            HDD += (UInt64)m["Size"];
+                        }
+
+                        query = new ObjectQuery("SELECT SerialNumber FROM Win32_BIOS");
+                        searcher = new ManagementObjectSearcher(scope, query, opt);
+                        queryCollection = searcher.Get();
+                        string SN = (String)queryCollection.OfType<ManagementObject>().First()["SerialNumber"];
+
+                        query = new ObjectQuery("SELECT PartOfDomain,Manufacturer,Model,UserName FROM Win32_ComputerSystem");
+                        searcher = new ManagementObjectSearcher(scope, query, opt);
+                        queryCollection = searcher.Get();
+                        ManagementObject d = queryCollection.OfType<ManagementObject>().First();
+                        string manu = (String)d["Manufacturer"];
+                        string model = (String)d["Model"];
+                        string user = (String)d["UserName"];
+                        bool network = (bool)d["PartOfDomain"];
 
 
                         //Console.WriteLine("hia");
@@ -491,6 +516,12 @@ MessageBoxButtons.OK, MessageBoxIcon.Error);
                         {
                             r["Memory (GB)"] = Math.Round((double)Capacity / (1024 * 1024 * 1024));
                             r["LastWMIC"] = DateTime.Now.ToString("yyyy-MM-dd");
+                            r["Manufacturer"] = manu;
+                            r["Model"] = model;
+                            r["On Network"] = network;
+                            r["S/N"] = SN;
+                            r["LastUser"] = user;
+                            r["HDD (GB)"] = Math.Round((double)HDD / (1024 * 1024 * 1024));
                         }
                         //Console.WriteLine("hic");
                     } catch(Exception er)
