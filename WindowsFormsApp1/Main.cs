@@ -257,8 +257,18 @@ Select B.asset1 FROM assets A Left Join relations B ON A.ID = B.asset2 WHERE a.t
                 ret.AddCell(new Phrase(b["Asset Number"].ToString(), f));
                 ret.AddCell(new Phrase(b["Model"].ToString(), f));
                 ret.AddCell(new Phrase(b["S/N"].ToString(), f));
-                ret.AddCell(new Phrase(b["HDD (GB)"].ToString() + " GB", f));
-                ret.AddCell(new Phrase(b["Memory (GB)"].ToString() + " GB", f));
+                if(b["Hard Drive"].ToString().EndsWith("B"))
+                    ret.AddCell(new Phrase(b["Hard Drive"].ToString(), f));
+                else
+                {
+                    ret.AddCell(new Phrase(b["Hard Drive"].ToString() + " GB", f));
+                }
+                if (b["Memory"].ToString().EndsWith("B"))
+                    ret.AddCell(new Phrase(b["Memory"].ToString(), f));
+                else
+                {
+                    ret.AddCell(new Phrase(b["Memory"].ToString() + " GB", f));
+                }
             }
             return ret;
         }
@@ -412,7 +422,7 @@ Select B.asset1 FROM assets A Left Join relations B ON A.ID = B.asset2 WHERE a.t
         {
 
 
-            string[] login =  PasswordPrompt.ShowDialog();
+            string[] login = PasswordPrompt.ShowDialog();
             if (login == null)
             {
                 MessageBox.Show("Empty Login", "Login Failed",
@@ -447,8 +457,8 @@ MessageBoxButtons.OK, MessageBoxIcon.Error);
             foreach (DataRow r in table.Rows)
             {
                 Console.WriteLine(DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond);
-              //  Console.WriteLine("Test1");
-                if ((string)r["Asset Number"] == "") continue ;
+                //  Console.WriteLine("Test1");
+                if (r["Asset Number"].GetType() == typeof(DBNull) || (string)(r["Asset Number"]) == "") continue ;
                 string name = (string)r["Asset Number"];
                 if (String.Compare(((string)r["Type"]), "Laptop", StringComparison.OrdinalIgnoreCase) == 0) {
                     name += "P";
@@ -514,14 +524,14 @@ MessageBoxButtons.OK, MessageBoxIcon.Error);
                         //Console.WriteLine("hia");
                         lock (r)
                         {
-                            r["Memory (GB)"] = Math.Round((double)Capacity / (1024 * 1024 * 1024));
+                            r["Memory"] = Math.Round((double)Capacity / (1024 * 1024 * 1024));
                             r["LastWMIC"] = DateTime.Now.ToString("yyyy-MM-dd");
                             r["Manufacturer"] = manu;
                             r["Model"] = model;
                             r["On Network"] = network;
                             r["S/N"] = SN;
                             r["LastUser"] = user;
-                            r["HDD (GB)"] = Math.Round((double)HDD / (1024 * 1024 * 1024));
+                            r["Hard Drive"] = Math.Round((double)HDD / (1024 * 1024 * 1024));
                         }
                         //Console.WriteLine("hic");
                     } catch(Exception er)
