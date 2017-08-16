@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BulkLink.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BulkLink.Designer.cs">
+      <DependentUpon>BulkLink.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     <Compile Include="ViewDetails.Designer.cs">
       <DependentUpon>ViewDetails.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BulkLink.resx">
+      <DependentUpon>BulkLink.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GroupManager.resx">
       <DependentUpon>GroupManager.cs</DependentUpon>
     </EmbeddedResource>

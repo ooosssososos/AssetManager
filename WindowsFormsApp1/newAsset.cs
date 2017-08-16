@@ -88,9 +88,9 @@ namespace WindowsFormsApp1
             a["Date Added"] = dateTimePicker1.Value.ToString("yyyy-MM-dd");
             a["Model"] = textBox6.Text;
             if(textBox8.Text != "")
-            a["Memory (GB)"] = Int32.Parse(textBox8.Text);
+            a["Memory"] = Int32.Parse(textBox8.Text);
             if (textBox7.Text != "")
-                a["HDD (GB)"] = Int32.Parse(textBox7.Text);
+                a["Hard Drive"] = Int32.Parse(textBox7.Text);
             a["Building"] = comboBox2.Text;
             a["OS"] = comboBox4.Text;
             a["On Network"] = checkBox1.Checked;

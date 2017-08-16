@@ -53,7 +53,7 @@
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 850);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1476, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1201, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -65,7 +65,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(3, 39);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1469, 805);
+            this.dataGridView1.Size = new System.Drawing.Size(1191, 805);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
@@ -79,7 +79,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(1234, 3);
+            this.button7.Location = new System.Drawing.Point(1116, 3);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 10;
@@ -89,7 +89,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(1133, 3);
+            this.button5.Location = new System.Drawing.Point(1015, 3);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(95, 23);
             this.button5.TabIndex = 7;
@@ -99,7 +99,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1035, 3);
+            this.button4.Location = new System.Drawing.Point(917, 3);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(92, 23);
             this.button4.TabIndex = 6;
@@ -109,7 +109,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(938, 3);
+            this.button6.Location = new System.Drawing.Point(820, 3);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(91, 23);
             this.button6.TabIndex = 9;
@@ -119,7 +119,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(822, 3);
+            this.button3.Location = new System.Drawing.Point(704, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(110, 23);
             this.button3.TabIndex = 5;
@@ -136,7 +136,7 @@
             "Surplused",
             "ShippedAway",
             "Missing"});
-            this.comboBox1.Location = new System.Drawing.Point(623, 3);
+            this.comboBox1.Location = new System.Drawing.Point(505, 3);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(193, 21);
             this.comboBox1.TabIndex = 8;
@@ -145,7 +145,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(301, 3);
+            this.textBox1.Location = new System.Drawing.Point(183, 3);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(316, 20);
             this.textBox1.TabIndex = 7;
@@ -153,9 +153,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(175, 3);
+            this.button2.Location = new System.Drawing.Point(92, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(120, 23);
+            this.button2.Size = new System.Drawing.Size(85, 23);
             this.button2.TabIndex = 6;
             this.button2.Text = "Save/Refresh";
             this.button2.UseVisualStyleBackColor = true;
@@ -165,7 +165,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(166, 23);
+            this.button1.Size = new System.Drawing.Size(83, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "New Asset";
             this.button1.UseVisualStyleBackColor = true;
@@ -184,7 +184,7 @@
             this.flowLayoutPanel1.Controls.Add(this.button7);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1470, 30);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1194, 30);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -198,14 +198,14 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.250295F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 95.7497F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1476, 847);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1200, 847);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1476, 872);
+            this.ClientSize = new System.Drawing.Size(1201, 872);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "Main";
